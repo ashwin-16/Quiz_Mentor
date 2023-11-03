@@ -1,6 +1,7 @@
 package com.example.quiz_app;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -14,6 +15,7 @@ import com.example.quiz_app.Adapters.QuestionsAdapter;
 import com.example.quiz_app.databinding.ActivityAddQuestionBinding;
 import com.example.quiz_app.databinding.ActivityQuestionBinding;
 import com.example.quiz_app.model.QuestionModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,7 +45,32 @@ public class QuestionActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager =new LinearLayoutManager(this);
         binding.recyQuestions.setLayoutManager(layoutManager);
 
-        adapter=new QuestionsAdapter(this,list);  //erorrrrr
+        adapter=new QuestionsAdapter(this, list, categoryName, new QuestionsAdapter.DeleteListener() {
+            @Override
+            public void onLongClick(int position, String id) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+                builder.setTitle("Delete question");
+                builder.setMessage("Are you sure,you want to delete this question");
+
+                builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+
+                    database.getReference().child("Sets").child(categoryName).child("questions").child(id).removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(QuestionActivity.this, "question deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                });
+                builder.setNegativeButton("No", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+            }
+        });
        binding.recyQuestions.setAdapter(adapter);
 
        database.getReference().child("Sets").child(categoryName).child("questions")
@@ -52,6 +79,8 @@ public class QuestionActivity extends AppCompatActivity {
                            @Override
                            public void onDataChange(@NonNull DataSnapshot snapshot) {
                                if(snapshot.exists()){
+
+                                   list.clear();
                                    for(DataSnapshot dataSnapshot:snapshot.getChildren()){
                                        QuestionModel model=dataSnapshot.getValue(QuestionModel.class);
                                        model.setKey(dataSnapshot.getKey());

@@ -18,7 +18,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.view
 
     Context context;
     ArrayList<QuestionModel> list;
+    String categoryName;
+    DeleteListener listener;
 
+
+    public QuestionsAdapter(Context context, ArrayList<QuestionModel> list, String categoryName, DeleteListener listener) {
+        this.context = context;
+        this.list = list;
+        this.categoryName = categoryName;
+        this.listener = listener;
+    }
 
     public QuestionsAdapter(Context context, ArrayList<QuestionModel> list) {
         this.context = context;
@@ -37,8 +46,20 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
-        QuestionModel model=list.get(position);
+        QuestionModel model = list.get(holder.getAdapterPosition());
+//        QuestionModel model=list.get(position);
         holder.binding.question.setText(model.getQuestion());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                listener.onLongClick(position,list.get(position).getKey());
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    listener.onLongClick(adapterPosition, list.get(adapterPosition).getKey());
+                }
+            }
+        });
 
 
     }
@@ -55,5 +76,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.view
             super(itemView);
             binding=ItemQuestionsBinding.bind(itemView);
         }
+    }
+    public interface DeleteListener{
+        public void onLongClick(int position,String id);
     }
 }

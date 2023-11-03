@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#CB0E6570">
+    android:background="#ABC7CA">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -12,7 +12,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="664dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="50dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +23,7 @@
         <TextView
             android:id="@+id/question"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:text="Learn Android"

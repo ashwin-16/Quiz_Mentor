@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="#ABC7CA"
     tools:context=".AddQuestionActivity">
 
     <EditText
@@ -17,8 +17,9 @@
         android:ems="10"
         android:hint="Enter your Question"
         android:inputType="text"
-        android:textColor="#000000"
+        android:textColor="#0B0303"
         android:textColorHint="#F3F3F3"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,9 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Mark Correct Answer"
-        android:textColor="#F8F5F5"
+        android:textColor="#000000"
         android:textColorHint="#FAF5F5"
-        android:textSize="16sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/inputQuestion"
         app:layout_constraintStart_toStartOf="@+id/inputQuestion"
         app:layout_constraintTop_toBottomOf="@+id/inputQuestion"
@@ -106,7 +108,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:inputType="text"
-                android:textColor="#F6F0F0" />
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/editTextText5"
@@ -135,12 +137,14 @@
 
     </LinearLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnUploadQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Upload"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_next_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
